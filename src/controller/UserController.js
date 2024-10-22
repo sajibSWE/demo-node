@@ -1,11 +1,14 @@
+import userService from "../service/UserService.js";
 
 class UserController {
 
-    async getUser(req, res) {
+    async getUsers(req, res) {
 
         try {
 
-            res.status(201).json({ msg: 'got user' });
+            const users = await userService.getUsers();
+
+            res.status(201).json(users);
 
         } catch (error) {
 
@@ -17,7 +20,6 @@ class UserController {
 
 }
 
-// Export an instance of UserController
 const userController = new UserController();
 export default userController;
 

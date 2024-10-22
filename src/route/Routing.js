@@ -8,7 +8,7 @@ class Routing {
 
         this.router = express.Router();
 
-        this.router.get('/getUser', userController.getUser);
+        this.router.get('/getUsers', userController.getUsers);
 
         this.router.get('/', (req, res) => {
 
