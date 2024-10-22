@@ -1,30 +1,24 @@
-import express from 'express';
-import routes from './route/Routing.js';
-import { PORT,INITIAL_ROUTE } from '../resources/properties.js';
+import express from "express";
+import routing from "./route/Routing.js";
+import { PORT, INITIAL_ROUTE } from "../resources/properties.js";
 
 class Application {
+  static start() {
+    const app = express();
 
-    static start() {
+    app.use(INITIAL_ROUTE, routing.getRouter());
 
-        const app = express();
+    app.use((req, res, next) => {
+      res.status(404).json({ message: "Not Found" });
+    });
 
-        app.use(INITIAL_ROUTE, routes);
-
-        app.use((req, res, next) => {
-            res.status(404).json({ message: 'Not Found' });
-        });
-
-        // Start server
-        const port = process.env.PORT || PORT;
-        app.listen(PORT, () => {
-            console.log(`Server running on port ${port}`);
-        });
-
-    }
-
+    // Start server
+    const port = process.env.PORT || PORT;
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${port}`);
+    });
+  }
 }
 
-//start execution 
+//start execution
 Application.start();
-
-

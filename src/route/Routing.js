@@ -1,26 +1,23 @@
-import express from 'express';
+import express from "express";
 
-import userController from '../controller/UserController.js';
+import userController from "../controller/UserController.js";
 
 class Routing {
+  constructor() {
+    this.router = express.Router();
 
-    constructor() {
+    this.router.get("/getUsers", userController.getUsers);
 
-        this.router = express.Router();
+    this.router.get("/", (req, res) => {
+      res.send("Hello, ES6 in Node.js!");
+    });
+  }
 
-        this.router.get('/getUsers', userController.getUsers);
-
-        this.router.get('/', (req, res) => {
-
-            res.send('Hello, ES6 in Node.js!');
-
-        });
-
-    }
-
+  getRouter() {
+    return this.router;
+  }
 }
 
 // Export an instance of Routing
 const routing = new Routing();
-export default routing.router;
-
+export default routing;
