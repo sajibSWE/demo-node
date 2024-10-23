@@ -1,6 +1,6 @@
 import User from "../model/User.js";
-import sequelize from "../../resources/database.js";
-import { UnknownConstraintError } from "sequelize";
+// import sequelize from "../../resources/database.js";
+// import { UnknownConstraintError } from "sequelize";
 
 class UserRepository {
 
@@ -38,3 +38,8 @@ export default userRepository;
 //         type: sequelize.QueryTypes.SELECT, // Specify that this is a SELECT query
 //       };
 //       const users = await sequelize.query(sql, queryType);
+
+// const user = await User.findOne({
+//   where: { id: 1 }
+// }) ?? {};
+
