@@ -13,11 +13,34 @@ class UserRepository {
 
     } catch (error) {
 
-      console.error("Error fetching users:", error);
+      throw error;
 
     }
 
   }
+
+  async createUser(userDTO) {
+
+    try {
+
+      // Map the DTO to the Sequelize model
+      const user = await User.create({
+        user_name: userDTO.userName,
+        email: userDTO.email,
+        age: userDTO.age,
+        country: userDTO.country,
+      });
+
+      return user;
+
+    } catch (error) {
+
+      throw error;
+
+    }
+
+  }
+
 
 }
 

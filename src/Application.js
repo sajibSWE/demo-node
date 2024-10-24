@@ -1,6 +1,8 @@
 import express from "express";
 import routing from "./route/Routing.js";
 import { PORT, CONTEXT_PATH } from "../resources/properties.js";
+import GlobalErrorMiddleware from "./middleware/GlobalErrorMiddleware.js";
+import CustomError from "./exception/CustomError.js";
 
 class Application {
 
@@ -9,10 +11,11 @@ class Application {
     const app = express();
 
     app.use(CONTEXT_PATH, routing.getRouter());
+    app.use(GlobalErrorMiddleware.handleError);
 
     app.use((req, res, next) => {
 
-      res.status(404).json({ message: "Not Found" });
+      next(new CustomError(`Can't find ${req.originalUrl} on this server!`, 404));
 
     });
 

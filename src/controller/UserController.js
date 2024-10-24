@@ -16,8 +16,36 @@ class UserController {
     }
 
   }
-  
+
+  async createUser(req, res, next) {
+
+    try {
+
+      const user = await userService.createUser(req.body);
+
+      if (!user) {
+
+        return next(new CustomError('User not created.', 404));  // Throwing operational error
+
+      }
+
+      res.status(201).json({
+
+        status: 'success',
+        data: { user },
+
+      });
+
+    } catch (error) {
+
+      next(error)
+
+    }
+
+  }
+
 }
 
 const userController = new UserController();
 export default userController;
+

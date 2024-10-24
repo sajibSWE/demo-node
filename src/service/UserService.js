@@ -1,4 +1,6 @@
 import userRepository from "../repository/UserRepository.js";
+import UserDTO from "../dto/UserDTO.js";
+
 
 class UserService {
 
@@ -11,7 +13,27 @@ class UserService {
 
     } catch (error) {
 
-      console.error("Error fetching users:", error);
+      throw error;
+
+    }
+
+  }
+
+  async createUser(data) {
+
+    try {
+
+      const userDTO = new UserDTO(data);
+
+      UserDTO.validate(userDTO)  // Validate data
+
+      const user = await userRepository.createUser(userDTO);
+
+      return user;
+
+    } catch (error) {
+
+      throw error;
 
     }
 
@@ -21,3 +43,5 @@ class UserService {
 
 const userService = new UserService();
 export default userService;
+
+
