@@ -4,6 +4,8 @@ import { PORT, CONTEXT_PATH } from "../resources/properties.js";
 import GlobalErrorMiddleware from "./middleware/GlobalErrorMiddleware.js";
 import CustomError from "./exception/CustomError.js";
 import Swagger from "./config/Swagger.js";
+import morgan from "morgan";
+
 
 class Application {
 
@@ -16,6 +18,9 @@ class Application {
     //adding global error handler
     app.use(GlobalErrorMiddleware.handleError);
 
+    // Use Morgan to log requests to the console
+    app.use(morgan("dev"))
+
     const swagger = new Swagger();
 
     swagger.setup(app);
@@ -25,6 +30,8 @@ class Application {
       next(new CustomError(`Can't find ${req.originalUrl} on this server!`, 404));
 
     });
+
+
 
     // Listen for termination signals
     process.on("SIGINT", this.shutdown);

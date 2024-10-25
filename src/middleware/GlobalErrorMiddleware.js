@@ -35,8 +35,6 @@ class GlobalErrorMiddleware {
 
             } else {
 
-                // Programming or unknown error
-                console.error('ERROR 💥:', err);
                 res.status(500).json({
 
                     status: 'error',
