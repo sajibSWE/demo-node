@@ -3,6 +3,7 @@ import routing from "./route/Routing.js";
 import { PORT, CONTEXT_PATH } from "../resources/properties.js";
 import GlobalErrorMiddleware from "./middleware/GlobalErrorMiddleware.js";
 import CustomError from "./exception/CustomError.js";
+import Swagger from "./config/Swagger.js";
 
 class Application {
 
@@ -11,7 +12,13 @@ class Application {
     const app = express();
 
     app.use(CONTEXT_PATH, routing.getRouter());
+
+    //adding global error handler
     app.use(GlobalErrorMiddleware.handleError);
+
+    const swagger = new Swagger();
+
+    swagger.setup(app);
 
     app.use((req, res, next) => {
 
